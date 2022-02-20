@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+import google.cloud
 
 # Enable logging
 logging.basicConfig(
@@ -32,7 +33,90 @@ def help_command(update: Update, context: CallbackContext) -> None:
 
 def echo(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
-    update.message.reply_text(update.message.text)
+    #update.message.reply_text(update.message.text)
+    project_id = "luminous-figure-321506"
+    session_id = "dims_dvmn_text_recognition_bot"
+    text = update.message.text
+    language_code = "ru"
+    google_response = detect_intent_text(project_id, session_id, text, language_code)
+    update.message.reply_text(google_response)
+
+
+def detect_intent_text(project_id, session_id, text, language_code):
+    """Returns the result of detect intent with texts as inputs.
+
+    Using the same `session_id` between requests allows continuation
+    of the conversation."""
+    from google.cloud import dialogflow
+
+    session_client = dialogflow.SessionsClient()
+
+    session = session_client.session_path(project_id, session_id)
+    # print("Session path: {}\n".format(session))
+
+    text_input = dialogflow.TextInput(text=text, language_code=language_code)
+
+    query_input = dialogflow.QueryInput(text=text_input)
+
+    response = session_client.detect_intent(
+        request={"session": session, "query_input": query_input}
+    )
+
+    """print("=" * 20)
+    print("Query text: {}".format(response.query_result.query_text))
+    print(
+        "Detected intent: {} (confidence: {})\n".format(
+            response.query_result.intent.display_name,
+            response.query_result.intent_detection_confidence,
+        )
+    )
+    print("Fulfillment text: {}\n".format(response.query_result.fulfillment_text))"""
+
+    return response.query_result.fulfillment_text
+
+
+def detect_intent_texts(project_id, session_id, texts, language_code):
+    """Returns the result of detect intent with texts as inputs.
+
+    Using the same `session_id` between requests allows continuation
+    of the conversation."""
+    from google.cloud import dialogflow
+
+    session_client = dialogflow.SessionsClient()
+
+    session = session_client.session_path(project_id, session_id)
+    # print("Session path: {}\n".format(session))
+
+    for text in texts:
+        text_input = dialogflow.TextInput(text=text, language_code=language_code)
+
+        query_input = dialogflow.QueryInput(text=text_input)
+
+        response = session_client.detect_intent(
+            request={"session": session, "query_input": query_input}
+        )
+
+        """print("=" * 20)
+        print("Query text: {}".format(response.query_result.query_text))
+        print(
+            "Detected intent: {} (confidence: {})\n".format(
+                response.query_result.intent.display_name,
+                response.query_result.intent_detection_confidence,
+            )
+        )
+        print("Fulfillment text: {}\n".format(response.query_result.fulfillment_text))"""
+
+
+def implicit():
+    from google.cloud import storage
+
+    # If you don't specify credentials when constructing the client, the
+    # client library will look for credentials in the environment.
+    storage_client = storage.Client()
+
+    # Make an authenticated API request
+    buckets = list(storage_client.list_buckets())
+    print(f'buckets = {buckets}')
 
 
 def main() -> None:
@@ -40,7 +124,7 @@ def main() -> None:
     dotenv_path = os.path.join(base_dir, 'venv\.env')
     load_dotenv(dotenv_path)
     TELEGRAM_TOKEN = os.getenv("DVNM_BOT_TELEGRAM_TOKEN")
-
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
     updater = Updater(TELEGRAM_TOKEN, use_context=True)
 

@@ -128,3 +128,6 @@ dmypy.json
 
 # Windows shortcut
 .lnk
+
+# PyCharm
+.idea/

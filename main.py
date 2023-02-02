@@ -4,7 +4,11 @@ from dotenv import load_dotenv
 
 from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-import google.cloud
+
+base_dir = os.path.dirname(__file__)
+dotenv_path = os.path.join(base_dir, 'venv\.env')
+load_dotenv(dotenv_path)
+GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
 
 # Enable logging
 logging.basicConfig(
@@ -33,12 +37,11 @@ def help_command(update: Update, context: CallbackContext) -> None:
 
 def echo(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
-    #update.message.reply_text(update.message.text)
-    project_id = "luminous-figure-321506"
-    session_id = "dims_dvmn_text_recognition_bot"
+    # update.message.reply_text(update.message.text)
+    session_id = update.message.chat_id
     text = update.message.text
     language_code = "ru"
-    google_response = detect_intent_text(project_id, session_id, text, language_code)
+    google_response = detect_intent_text(GOOGLE_PROJECT_ID, session_id, text, language_code)
     update.message.reply_text(google_response)
 
 
@@ -120,9 +123,6 @@ def implicit():
 
 
 def main() -> None:
-    base_dir = os.path.dirname(__file__)
-    dotenv_path = os.path.join(base_dir, 'venv\.env')
-    load_dotenv(dotenv_path)
     TELEGRAM_TOKEN = os.getenv("DVNM_BOT_TELEGRAM_TOKEN")
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 

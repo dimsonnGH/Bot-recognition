@@ -19,5 +19,9 @@ def detect_intent_text(project_id, session_id, text, language_code):
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
+    result = {
+        'text': response.query_result.fulfillment_text,
+        'is_fallback': response.query_result.intent.is_fallback,
+    }
 
-    return response.query_result.fulfillment_text
+    return result

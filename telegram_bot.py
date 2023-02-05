@@ -37,7 +37,7 @@ def echo(update: Update, context: CallbackContext) -> None:
     text = update.message.text
     language_code = "ru"
     google_response = detect_intent_text(GOOGLE_PROJECT_ID, session_id, text, language_code)
-    update.message.reply_text(google_response)
+    update.message.reply_text(google_response['text'])
 
 
 

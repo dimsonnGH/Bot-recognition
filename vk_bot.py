@@ -15,10 +15,12 @@ def echo(event, vk_api):
     text = event.text
     language_code = "ru"
     google_response = detect_intent_text(GOOGLE_PROJECT_ID, session_id, text, language_code)
+    if google_response['is_fallback']:
+        return
 
     vk_api.messages.send(
         user_id=event.user_id,
-        message=google_response,
+        message=google_response['text'],
         random_id=random.randint(1,1000)
     )
 

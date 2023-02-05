@@ -5,9 +5,7 @@ from dotenv import load_dotenv
 from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
-base_dir = os.path.dirname(__file__)
-dotenv_path = os.path.join(base_dir, 'venv\.env')
-load_dotenv(dotenv_path)
+load_dotenv()
 GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
 
 # Enable logging

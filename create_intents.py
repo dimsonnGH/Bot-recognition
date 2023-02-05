@@ -35,9 +35,7 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 
 def create_intents(intents):
 
-    base_dir = os.path.dirname(__file__)
-    dotenv_path = os.path.join(base_dir, 'venv\.env')
-    load_dotenv(dotenv_path)
+    load_dotenv()
     GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
 
     for display_name in intents:

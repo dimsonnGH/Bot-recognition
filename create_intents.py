@@ -3,7 +3,6 @@ import sys
 import argparse
 import json
 import pathlib
-from pprint import pprint
 from dotenv import load_dotenv
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
@@ -58,7 +57,7 @@ def main():
             intents = json.load(intents_json_file)
             create_intents(intents)
     except FileNotFoundError as e:
-        print(f'Define the file name in -f argument')
+        print(f'Define the file name in file path argument')
         sys.exit(1)
 
 if __name__ == '__main__':

@@ -10,7 +10,6 @@ def detect_intent_text(project_id, session_id, text, language_code):
     session_client = dialogflow.SessionsClient()
 
     session = session_client.session_path(project_id, session_id)
-    # print("Session path: {}\n".format(session))
 
     text_input = dialogflow.TextInput(text=text, language_code=language_code)
 

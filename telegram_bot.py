@@ -48,7 +48,7 @@ def main() -> None:
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
     CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-    bot = init_telegram_log_bot(TELEGRAM_TOKEN, CHAT_ID, logger)
+    init_telegram_log_bot(logger, TELEGRAM_TOKEN, CHAT_ID)
 
     updater = Updater(TELEGRAM_TOKEN, use_context=True)
 

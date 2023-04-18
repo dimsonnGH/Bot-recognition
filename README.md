@@ -52,11 +52,14 @@ python create_intents.py <путь к файлу json с тренировочн�
 
 Cоздате файл `.env` в каталоге проекта со следующими настройками:
 
-```DVNM_BOT_TELEGRAM_TOKEN=<токен доступа к API Telegram>```
-```GOOGLE_APPLICATION_CREDENTIALS=<путь к файлу .json с ключами Google>```
-```GOOGLE_PROJECT_ID=<идентификатор проекта DialogFlow>```
-```GOOGLE_API_KEY=<API-токен DialogFlow>```
-```TELEGRAM_CHAT_ID=<chat_id в Telegram>```
+```
+DVNM_BOT_TELEGRAM_TOKEN=<токен доступа к API Telegram>
+GOOGLE_APPLICATION_CREDENTIALS=<путь к файлу .json с ключами Google>
+GOOGLE_PROJECT_ID=<идентификатор проекта DialogFlow>
+GOOGLE_API_KEY=<API-токен DialogFlow>
+TELEGRAM_CHAT_ID=<chat_id в Telegram>
+```
+
 ### Запуск telegram-бота
 
 Запустите telegram-бота 

@@ -5,6 +5,7 @@ import json
 import pathlib
 from dotenv import load_dotenv
 
+
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
     """Create an intent of the given intent type."""
     from google.cloud import dialogflow
@@ -32,20 +33,19 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 
     print(f"Intent created: {display_name}")
 
-def create_intents(intents):
 
+def create_intents(intents):
     load_dotenv()
     GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
 
     for display_name in intents:
         intent = intents[display_name]
         training_phrases_parts = intent['questions']
-        message_texts = [intent['answer'],]
+        message_texts = [intent['answer'], ]
         create_intent(GOOGLE_PROJECT_ID, display_name, training_phrases_parts, message_texts)
 
 
 def main():
-
     parser = argparse.ArgumentParser(description='Creating intents for DialogFlow')
     parser.add_argument('file_path', type=pathlib.Path, help='Intents json file path')
     args = parser.parse_args()
@@ -59,6 +59,7 @@ def main():
     except FileNotFoundError as e:
         print(f'Define the file name in file path argument')
         sys.exit(1)
+
 
 if __name__ == '__main__':
     main()

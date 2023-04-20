@@ -4,8 +4,10 @@
 
 ##Ссылки на примеры работающих ботов:
 [чат telegram](https://t.me/dims_dvmn_text_recognition_bot)
+![Анимация работы чата telegram](readme/work tg.gif "Анимация работы чата telegram")
 
 [группа vk](https://vk.com/public218680601)
+![Анимация работы чата в группе vk](readme/work vk.gif "Анимация работы чата в группе vk")
 
 ### Как установить
 

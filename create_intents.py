@@ -4,11 +4,11 @@ import argparse
 import json
 import pathlib
 from dotenv import load_dotenv
+from google.cloud import dialogflow
 
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
     """Create an intent of the given intent type."""
-    from google.cloud import dialogflow
 
     intents_client = dialogflow.IntentsClient()
 

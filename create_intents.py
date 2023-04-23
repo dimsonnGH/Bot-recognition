@@ -38,8 +38,7 @@ def create_intents(intents):
     load_dotenv()
     GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
 
-    for display_name in intents:
-        intent = intents[display_name]
+    for display_name, intent in intents.items():
         training_phrases_parts = intent['questions']
         message_texts = [intent['answer'], ]
         create_intent(GOOGLE_PROJECT_ID, display_name, training_phrases_parts, message_texts)

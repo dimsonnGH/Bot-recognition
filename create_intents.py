@@ -34,17 +34,17 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     print(f"Intent created: {display_name}")
 
 
-def create_intents(intents):
-    load_dotenv()
-    GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
-
+def create_intents(intents, project_id):
     for display_name, intent in intents.items():
         training_phrases_parts = intent['questions']
         message_texts = [intent['answer'], ]
-        create_intent(GOOGLE_PROJECT_ID, display_name, training_phrases_parts, message_texts)
+        create_intent(project_id, display_name, training_phrases_parts, message_texts)
 
 
 def main():
+    load_dotenv()
+    GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
+
     parser = argparse.ArgumentParser(description='Creating intents for DialogFlow')
     parser.add_argument('file_path', type=pathlib.Path, help='Intents json file path')
     args = parser.parse_args()
@@ -54,7 +54,7 @@ def main():
     try:
         with open(json_file_path, 'r', encoding='utf-8') as intents_json_file:
             intents = json.load(intents_json_file)
-            create_intents(intents)
+            create_intents(intents, GOOGLE_PROJECT_ID)
     except FileNotFoundError as e:
         print(f'Define the file name in file path argument')
         sys.exit(1)

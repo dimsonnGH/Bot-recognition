@@ -34,7 +34,7 @@ def help_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Help!')
 
 
-def echo(update: Update, context: CallbackContext) -> None:
+def send_response(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
     session_id = update.message.chat_id
     text = update.message.text
@@ -60,7 +60,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("help", help_command))
 
     # on non command i.e message - echo the message on Telegram
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, send_response))
 
     # log all errors
     dispatcher.add_error_handler(log_error)

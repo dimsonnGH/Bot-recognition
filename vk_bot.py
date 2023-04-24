@@ -23,7 +23,7 @@ def log_error(update, error):
     logger.warning('Update "%s" caused error "%s"', update, error)
 
 
-def echo(event, vk_api):
+def send_response(event, vk_api):
     session_id = event.user_id
     text = event.text
     language_code = "ru"
@@ -55,7 +55,7 @@ def main():
 
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api)
+            send_response(event, vk_api)
 
 
 if __name__ == "__main__":

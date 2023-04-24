@@ -7,7 +7,6 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from dialog_flow import detect_intent_text
 from telegram_logging import init_telegram_log_bot
 
-
 load_dotenv()
 GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
 
@@ -16,11 +15,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-
-
-def log_error(update, error):
-    """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, error)
 
 
 def send_response(event, vk_api):
@@ -34,7 +28,7 @@ def send_response(event, vk_api):
     vk_api.messages.send(
         user_id=event.user_id,
         message=google_response['text'],
-        random_id=random.randint(1,1000)
+        random_id=random.randint(1, 1000)
     )
 
 

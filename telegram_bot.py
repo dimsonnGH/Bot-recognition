@@ -40,7 +40,6 @@ def send_response(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
     CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
     init_telegram_log_bot(logger, TELEGRAM_TOKEN, CHAT_ID)

@@ -29,11 +29,6 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(f'Здравствуйте, {user.full_name}.')
 
 
-def help_command(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
-
-
 def send_response(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
     session_id = update.message.chat_id
@@ -57,7 +52,6 @@ def main() -> None:
 
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("help", help_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, send_response))

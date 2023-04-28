@@ -7,10 +7,6 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from dialog_flow import detect_intent_text
 from telegram_logging import init_telegram_log_bot
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
 logger = logging.getLogger(__name__)
 
 
@@ -30,6 +26,8 @@ def send_response(event, vk_api, google_project_id):
 
 
 def main():
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+
     load_dotenv()
 
     google_project_id = os.getenv("GOOGLE_PROJECT_ID")

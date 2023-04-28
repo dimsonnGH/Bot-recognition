@@ -7,10 +7,6 @@ from dialog_flow import detect_intent_text
 from telegram_logging import init_telegram_log_bot
 from functools import partial
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
 logger = logging.getLogger(__name__)
 
 
@@ -37,6 +33,8 @@ def send_response(update: Update, context: CallbackContext, google_project_id) -
 
 
 def main() -> None:
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+
     load_dotenv()
 
     google_project_id = os.getenv("GOOGLE_PROJECT_ID")

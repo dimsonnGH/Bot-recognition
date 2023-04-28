@@ -7,9 +7,6 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from dialog_flow import detect_intent_text
 from telegram_logging import init_telegram_log_bot
 
-load_dotenv()
-GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
-
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
 )
@@ -17,11 +14,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def send_response(event, vk_api):
+def send_response(event, vk_api, google_project_id):
     session_id = event.user_id
     text = event.text
     language_code = "ru"
-    google_response = detect_intent_text(GOOGLE_PROJECT_ID, session_id, text, language_code)
+    google_response = detect_intent_text(google_project_id, session_id, text, language_code)
     if google_response['is_fallback']:
         return
 
@@ -35,6 +32,7 @@ def send_response(event, vk_api):
 def main():
     load_dotenv()
 
+    google_project_id = os.getenv("GOOGLE_PROJECT_ID")
     VK_API_KEY = os.getenv("VK_API_KEY")
     vk_session = vk.VkApi(token=VK_API_KEY)
     TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -49,7 +47,7 @@ def main():
 
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            send_response(event, vk_api)
+            send_response(event, vk_api, google_project_id)
 
 
 if __name__ == "__main__":

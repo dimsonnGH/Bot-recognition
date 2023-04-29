@@ -5,7 +5,7 @@ import random
 import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
 from dialog_flow import detect_intent_text
-from telegram_logging import init_telegram_log_bot
+from telegram_logging import configure_telegram_log_bot
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +36,7 @@ def main():
     TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
     CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-    init_telegram_log_bot(logger, TELEGRAM_TOKEN, CHAT_ID)
+    configure_telegram_log_bot(logger, TELEGRAM_TOKEN, CHAT_ID)
 
     logger.info('VK bot started')
 

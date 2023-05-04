@@ -31,12 +31,12 @@ def main():
     load_dotenv()
 
     google_project_id = os.getenv("GOOGLE_PROJECT_ID")
-    VK_API_KEY = os.getenv("VK_API_KEY")
-    vk_session = vk.VkApi(token=VK_API_KEY)
-    TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-    CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+    telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+    vk_api_key = os.getenv("VK_API_KEY")
+    vk_session = vk.VkApi(token=vk_api_key)
 
-    configure_telegram_log_bot(logger, TELEGRAM_TOKEN, CHAT_ID)
+    configure_telegram_log_bot(logger, telegram_token, chat_id)
 
     logger.info('VK bot started')
 

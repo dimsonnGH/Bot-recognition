@@ -42,6 +42,7 @@ def create_intents(intents, project_id):
 
 def main():
     load_dotenv()
+
     GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
 
     parser = argparse.ArgumentParser(description='Creating intents for DialogFlow')

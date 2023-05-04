@@ -38,12 +38,12 @@ def main() -> None:
     load_dotenv()
 
     google_project_id = os.getenv("GOOGLE_PROJECT_ID")
-    TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-    CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+    telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
-    configure_telegram_log_bot(logger, TELEGRAM_TOKEN, CHAT_ID)
+    configure_telegram_log_bot(logger, telegram_token, chat_id)
 
-    updater = Updater(TELEGRAM_TOKEN, use_context=True)
+    updater = Updater(telegram_token, use_context=True)
 
     dispatcher = updater.dispatcher
 

@@ -33,13 +33,6 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     print(f"Intent created: {display_name}")
 
 
-def create_intents(intents, project_id):
-    for display_name, intent in intents.items():
-        training_phrases_parts = intent['questions']
-        message_texts = [intent['answer'], ]
-        create_intent(project_id, display_name, training_phrases_parts, message_texts)
-
-
 def main():
     load_dotenv()
 
@@ -54,7 +47,10 @@ def main():
     try:
         with open(json_file_path, 'r', encoding='utf-8') as intents_json_file:
             intents = json.load(intents_json_file)
-            create_intents(intents, google_project_id)
+            for display_name, intent in intents.items():
+                training_phrases_parts = intent['questions']
+                message_texts = [intent['answer'], ]
+                create_intent(google_project_id, display_name, training_phrases_parts, message_texts)
     except FileNotFoundError as e:
         print(f'Define the file name in file path argument')
         sys.exit(1)
